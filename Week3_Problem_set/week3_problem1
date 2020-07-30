@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jul 30 10:22:14 2020
+
+@author: Mukut Ranjan Kalita
+"""
+"""
+Problem 1 - Is the Word Guessed
+Please read the Hangman Introduction before starting this problem. 
+We'll start by writing 3 simple functions that will help us easily code
+the Hangman problem. First, implement the function isWordGuessed that takes 
+in two parameters - a string, secretWord, and a list of letters, lettersGuessed.
+This function returns a boolean - True if secretWord has been guessed
+(ie, all the letters of secretWord are in lettersGuessed) and False otherwise.
+"""
+def isWordGuessed(secretWord,lettersGuessed):
+    '''
+    secretWord: string, the word the user is guessing
+    lettersGuessed: list, what letters have been guessed so far
+    returns: boolean, True if all the letters of secretWord are in 
+    lettersGuessed;False otherwise
+    '''
+    letrinsword= [c for c in secretWord]
+    flag=1
+    for i in lettersGuessed:
+        if i in letrinsword:
+            flag=1
+        else:
+            flag =2
+        if flag ==2:
+            return False
+print("Now the first prob: \n")
+secretWord = 'apple'
+lettersGuessed = ['e', 'i', 'k', 'p', 'r', 'e']
+print(isWordGuessed(secretWord, lettersGuessed))
+
+print('\n')
+print("Now the second prob: \n")
+"""
+Problem 2 - Getting the User's Guess
+Next, implement the function getGuessedWord that takes in two 
+parameters - a string, secretWord, and a list of letters, lettersGuessed. 
+This function returns a string that is comprised of letters and underscores,
+based on what letters in lettersGuessed are in secretWord. 
+This shouldn't be too different from isWordGuessed!
+"""
+def getGuessedWord(secretWord, lettersGuessed):
+    letrinsword = [c for c in secretWord]
+    pword=""
+    for i in letrinsword:
+        if i in lettersGuessed:
+            pword+=i
+        else:
+            pword+='_'
+    return(pword)    
+   
+lettersGuessed = ['e', 'i', 'k', 'p', 'r', 's']
+print(getGuessedWord(secretWord, lettersGuessed))            
+
+"""
+Problem 3 - Printing Out all Available Letters
+Next, implement the function getAvailableLetters that 
+takes in one parameter - a list of letters, lettersGuessed. 
+This function returns a string that is comprised of lowercase 
+English letters - all lowercase English letters that are not in 
+lettersGuessed."""
+print('\n')
+print('Now the third problem: \n')
+def getAvailableLetters(lettersGuessed):
+    import string
+    s = string.ascii_lowercase
+    for i in lettersGuessed:
+        s1 = s.replace(i, '')
+        s = s1
+    return s
+lettersGuessed = ['e', 'i', 'k', 'p', 'r', 's']
+print(getAvailableLetters(lettersGuessed))    
