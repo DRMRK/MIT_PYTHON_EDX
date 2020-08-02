@@ -94,7 +94,6 @@ def compPlayHand(hand, wordList, n):
                 print()
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
     print('Total score: ' + str(totalScore) + ' points.')
-
     
 #
 # Problem #6: Playing a game
@@ -125,7 +124,25 @@ def playGame(wordList):
     wordList: list (string)
     """
     # TO DO... <-- Remove this comment when you code this function
-    print("playGame not yet implemented.") # <-- Remove this when you code this function
+    while True:
+        u_input=str(input("Enter n to deal a new hand, r to replay the last hand,or e to end game:"))
+        if u_input=='e':
+            break
+        elif u_input  == 'n':
+             choose_player=str(input("Enter u to have yourself play, c to have comp play"))            
+             if choose_player == 'u':
+                 hand = dealHand(HAND_SIZE)
+                 playHand(hand, wordList,HAND_SIZE)
+             if choose_player == 'c':
+                 hand = dealHand(HAND_SIZE)
+                 compPlayHand(hand, wordList, HAND_SIZE)       
+        elif u_input == 'r':
+            try:
+                playHand(hand, wordList, HAND_SIZE)
+            except:
+              print('You have not played a hand yet. Please play a new hand first!')                           
+        else:
+            print('Invalid command.')  
 
         
 #
