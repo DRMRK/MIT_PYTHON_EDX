@@ -125,25 +125,32 @@ def playGame(wordList):
     """
     # TO DO... <-- Remove this comment when you code this function
     while True:
-        u_input=str(input("Enter n to deal a new hand, r to replay the last hand,or e to end game:"))
+        
+        u_input=str(input("Enter n to deal a new hand, r to replay the last hand,or e to end game:  "))
+        
         if u_input=='e':
             break
         elif u_input  == 'n':
-             choose_player=str(input("Enter u to have yourself play, c to have comp play"))            
-             if choose_player == 'u':
-                 hand = dealHand(HAND_SIZE)
-                 playHand(hand, wordList,HAND_SIZE)
-             if choose_player == 'c':
-                 hand = dealHand(HAND_SIZE)
-                 compPlayHand(hand, wordList, HAND_SIZE)       
+             hand = dealHand(HAND_SIZE)
+             start_game(hand)
+        
         elif u_input == 'r':
             try:
-                playHand(hand, wordList, HAND_SIZE)
+                hand=hand
+                start_game(hand)
             except:
               print('You have not played a hand yet. Please play a new hand first!')                           
         else:
             print('Invalid command.')  
 
+# This function starts the game
+def start_game(hand):
+    player=str(input("Enter u to have yourself play, c to have comp play:  "))            
+    if player =='u':
+        return playHand(hand, wordList,HAND_SIZE)      
+    elif player =='c':
+        return compPlayHand(hand, wordList, HAND_SIZE)
+    
         
 #
 # Build data structures used for entire session and play game
