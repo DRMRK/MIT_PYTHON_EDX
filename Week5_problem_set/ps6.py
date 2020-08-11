@@ -126,11 +126,14 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        new_msg=[]
-        shifteddict = self. build_shift_dict(shift)
+        new_msg = []
         for i in self.message_text:
-            new_msg.append(shifteddict[i])
-        return(''.join(new_msg)) 
+            if i not in self.build_shift_dict(shift).keys():
+                new_msg.append(i)
+                continue
+            else:
+                new_msg.append(self.build_shift_dict(shift)[i])
+        return ''.join(new_msg)
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
@@ -226,23 +229,32 @@ class CiphertextMessage(Message):
         '''
         word_c = 0
         max_c = 0
-        for i in range(26):
-            w = self.apply_shift(i)
-            if is_word(self.valid_words, w):
-                word_c+=1
-            if word_c > max_c:
-                max_c = word_c
-                best_shift = i
-        return(best_shift, self.apply_shift(best_shift))
-                
+        print(self.message_text)
+        for i in range(26):    
+            for w in list(self.apply_shift(i).split(' ')):
+                if is_word(self.valid_words, w):
+                    word_c+=1
+                if word_c > max_c:
+                    max_c = word_c
+                    decrypted_msg = self.apply_shift(i)
+                    best_shift = i
+        return(best_shift, decrypted_msg)
 
 
 #Example test case (PlaintextMessage)
-plaintext = PlaintextMessage('hello', 2)
-print('Expected Output: jgnnq')
-print('Actual Output:', plaintext.get_message_text_encrypted())
+#plaintext = PlaintextMessage('hello', 2)
+#print('Expected Output: jgnnq')
+#print('Actual Output:', plaintext.get_message_text_encrypted())
     
 #Example test case (CiphertextMessage)
-ciphertext = CiphertextMessage('jgnnq')
-print('Expected Output:', (24, 'hello'))
+#ciphertext = CiphertextMessage(get_story_string())
+ciphertext = CiphertextMessage('Bwcval pm  kljyfwalk aopz. Dl dvyrlk ohyk huk kpk h nvvk qvi! Wvza fvby wlyzvuhs tlzzhnl pu aopz mvy vaolyz')
+#print('Expected Output:', (24, 'hello'))
 print('Actual Output:', ciphertext.decrypt_message())
+
+#
+#ciphertext2 = CiphertextMessage(get_story_string())
+#print('Actual Output:', ciphertext2.decrypt_message())
+
+
+
